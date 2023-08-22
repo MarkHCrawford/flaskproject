@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Search</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>CSV Search</h1>
+            <form action="/search" method="post">
+                <label for="query">Search Query:</label>
+            <input type="text" id="query" name="query" required>
+            <label for="field">Search Field:</label>
+            <select id="field" name="field">
+                <option value="all_columns">All Fields</option>
+                <option value="first_name">First Name</option>
+                <option value="last_name">Last Name</option>
+                <option value="company_name">Company Name</option>
+                <option value="address">Address</option>
+                <option value='phone'>Phone</option>
+                <option value="email">Email</option>
+                <option value="web">Web</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+        {% if query %}
+        <h2>Search Results for "{{ query }}" in "{{ selected_field }}"</h2>
+        <ul>
+            {% for result in results %}
+                <li>
+                    <h3>Search Result:</h3>
+                        <ul>
+                            {% for key, value in result.items() %}
+                                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                        <!-- Logic for first name and company name searches that return one result: -->
+                        {%if selected_field == 'first_name' and loop.length == 1 %}
+                            <img src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/user.png" alt="Icon">
+                        {% endif %}
+                        {% if selected_field == 'company_name' and loop.length == 1 %}
+                        <video controls width="300">
+                            <source src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/neARabl.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% endif %}
+
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
+

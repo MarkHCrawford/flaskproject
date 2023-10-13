@@ -8,4 +8,3 @@
 3. If company is selected, and the application returns only one result, a video is shown.
 
 
-## Application available at: [NearAbl Application](http://marcushcrawford.pythonanywhere.com/)
